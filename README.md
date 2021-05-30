@@ -16,30 +16,16 @@ You need to install  [`ffmpeg`](https://ffmpeg.org/) seperately.
 
 ## Usage
 
-<!-- ### GUI
-
-Visit watermark.py.aahnik.dev to experience the web app.
-
-### CLI
-
-You can use the command-line interface to easily apply watermark.
-
-```shell
-watermark --help
-``` -->
-
-<!-- ### Python -->
-
 ```python
-from watermark import File, Watermark, apply_watermark
+from watermark import File, Watermark, apply_watermark, Position
 
 video = File("vid.mp4")
-watermark = Watermark("im.png")
+watermark = Watermark(File("im.png"), pos=Position.bottom_right)
 
 apply_watermark(video, watermark)
 ```
 
-<!-- ## Used by
+## Used by
 
-- tgcf
-- telewater -->
+- [telewater](https://github.com/aahnik/telewater)
+A telegram bot that applies watermark on images, gifs, and videos.
