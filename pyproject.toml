@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "watermark.py"
-version = "0.0.3.post0"
+version = "0.0.3.post1"
 description = "A convenient python wrapper around FFmpeg to apply watermarks to images, gifs, and videos."
 packages = [ { include = "watermark.py"} ]
 authors = ["aahnik <daw@aahnik.dev>"]
