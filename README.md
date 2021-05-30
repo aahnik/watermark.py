@@ -1,7 +1,10 @@
 # watermark.py
 
-A convinient python wrapper around `ffmpeg` to apply
-watermarks to images, gifs and videos.
+![PyPI](https://img.shields.io/pypi/v/watermark.py)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/watermark.py)
+
+A convenient python wrapper around FFmpeg to apply watermarks to images, gifs,
+and videos.
 
 ## Installation
 
