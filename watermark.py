@@ -6,6 +6,7 @@
 import os
 from enum import Enum
 from mimetypes import guess_type
+import subprocess
 
 
 class Position(str, Enum):
@@ -64,18 +65,40 @@ def apply_watermark(
     output_file: str = "",
     frame_rate: int = 15,
     preset: str = "ultrafast",
+    overwrite: bool = True,
 ) -> str:
 
     if not output_file:
         output_file = f"watered_{file.path}"
-    command = f'ffmpeg -i {file.path} \
-        -i {wtm.overlay.path} \
-        -an -dn -sn -r {frame_rate} \
-        -preset {preset} \
-        -tune zerolatency  -tune fastdecode \
-        -filter_complex "overlay={wtm.offset}" \
-        {output_file}'
 
-    print(f"Running command {command}")
-    os.system(command)
+    cmd = [
+        "ffmpeg",
+        "-i",
+        file.path,
+        "-i",
+        wtm.overlay.path,
+        "-an",
+        "-dn",
+        "-sn",
+        "-r",
+        str(frame_rate),
+        "-preset",
+        preset,
+        "-crf",
+        str(30),
+        "-movflags",
+        "+faststart",
+        "-tune",
+        "zerolatency",
+        "-tune",
+        "fastdecode",
+        "-filter_complex",
+        f"overlay={wtm.offset}",
+        output_file,
+    ]
+
+    if os.path.isfile(output_file) and overwrite:
+        os.remove(output_file)
+
+    subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     return output_file
